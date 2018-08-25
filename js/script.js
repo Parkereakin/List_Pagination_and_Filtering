@@ -14,8 +14,7 @@ let numberOfPages = Math.floor((numberOfStudents / perPage) + 1);
 let currentPage = 1;
 
 
-// Create a function to hide all of the items in the list excpet for the ten you want to show
-// Tip: Keep in mind that with a list of 54 studetns, the last page will only display four
+// Function finds what pagination link is clicked, then shows the corresponding students. Shows students 1 - 10 by default.
 function displayStudents(perPage, currentPage) {
 	const low = ((currentPage * perPage) - perPage)
 	const high = (currentPage * perPage)
@@ -31,23 +30,25 @@ function displayStudents(perPage, currentPage) {
 }
 
 
-// Create and append the pagination links - Creating a function that can do this is a good approach
+// Create and append the pagination links, unless there are less than 11 students
 function createPaginationLinks(numberOfPages) {
 	const paginateDiv = document.createElement('div');
 	paginateDiv.className = 'pagination';
 	page.appendChild(paginateDiv);
 
-	for (let i = 0; i < numberOfPages; i++) {
-		let lis = document.createElement('li');
-		let links = document.createElement('a');
-		paginateDiv.appendChild(lis);
-		lis.appendChild(links);
-		links.textContent = i + 1;
+	if (numberOfPages < 2) {
+	} else {
+		for (let i = 0; i < numberOfPages; i++) {
+			let lis = document.createElement('li');
+			let links = document.createElement('a');
+			paginateDiv.appendChild(lis);
+			lis.appendChild(links);
+			links.textContent = i + 1;
+		}
 	}
 }
 
-// Add functionality to the pagination buttons so that they show and hide the correct items
-// Tip: If you created a function above to show/hide list items, it could be helpful here
+// Adds functionality to the pagination buttons so that they show and hide the correct items
 function paginationLinks() {
 	document.addEventListener("click", (e) => {
 		if (e.target.parentNode.parentNode.className === 'pagination') {
@@ -57,7 +58,7 @@ function paginationLinks() {
 	});
 }
 
-
+// Calls all functions on page load
 document.addEventListener("DOMContentLoaded", () => {
 	displayStudents(perPage, currentPage);
 
